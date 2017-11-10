@@ -4,24 +4,31 @@ import com.example.customerservice.domain.model.Customer;
 import com.example.customerservice.domain.model.CustomerId;
 import com.example.customerservice.domain.model.CustomerName;
 import com.example.customerservice.domain.model.CustomerRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import com.github.springtestdbunit.annotation.DatabaseSetup;
 import com.github.springtestdbunit.annotation.ExpectedDatabase;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Import;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Repository;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestExecutionListeners.MergeMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.Optional;
 import java.util.UUID;
 
 import static com.github.springtestdbunit.assertion.DatabaseAssertionMode.NON_STRICT;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /**
  * @author Stanislav Dobrovolschi
@@ -39,6 +46,18 @@ public class JpaCustomerRepositoryTest {
     @Autowired
     private TestEntityManager entityManager;
 
+    private JacksonTester<Customer> json;
+
+    @Before
+    public void setUp() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.findAndRegisterModules();
+        objectMapper.addMixIn(CustomerId.class, MixIns.CustomerIdMixIn.class);
+        objectMapper.addMixIn(CustomerName.class, MixIns.CustomerNameMixIn.class);
+
+        JacksonTester.initFields(this, objectMapper);
+    }
+
     @Test
     @ExpectedDatabase(value = "classpath:db/datasets/customer.xml", assertionMode = NON_STRICT)
     public void shouldPersistACustomer() {
@@ -46,5 +65,16 @@ public class JpaCustomerRepositoryTest {
         customerRepository.add(new Customer(customerId, CustomerName.of("Customer1")));
 
         entityManager.flush();
+    }
+
+    @Test
+    @DatabaseSetup("classpath:db/datasets/customers.xml")
+    public void shouldFindCustomerById() throws Exception {
+        CustomerId customerId = CustomerId.of(UUID.fromString("397e5247-205f-4011-b372-5b835c15fa9a"));
+        Optional<Customer> customer = customerRepository.find(customerId);
+
+        assertThat(customer)
+                .usingFieldByFieldValueComparator()
+                .contains(json.readObject(new ClassPathResource("customer.json")));
     }
 }

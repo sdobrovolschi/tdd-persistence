@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <CUSTOMER ID="397e5247-205f-4011-b372-5b835c15fa9a" NAME="Customer1" IS_LOYAL="true" />
+    <CUSTOMER ID="8ff20da4-369c-49fb-bbe1-757e16402bd3" NAME="Customer2" IS_LOYAL="false" />
+</dataset>
