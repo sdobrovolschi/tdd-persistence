@@ -1,27 +1,50 @@
 package com.example.customerservice.domain.model;
 
+import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import java.util.Objects;
 
 /**
  * @author Stanislav Dobrovolschi
  */
-public class Customer {
+@Entity
+@Table(schema = "customer", name = "CUSTOMER")
+public class Customer implements Persistable<CustomerId> {
 
+    @EmbeddedId
     private CustomerId id;
+
+    @Column(name = "NAME")
     private CustomerName name;
+
+    @Column(name = "IS_LOYAL", insertable = false)
     private boolean loyal;
+
+    @Transient
+    private boolean isNew;
 
     public Customer(CustomerId id, CustomerName name) {
         Assert.notNull(id, "Id must not be null.");
         Assert.notNull(name, "Name must not be null.");
         this.id = id;
         this.name = name;
+
+        isNew = true;
     }
 
     public CustomerId getId() {
         return id;
+    }
+
+    @Override
+    public boolean isNew() {
+        return isNew;
     }
 
     public CustomerName getName() {

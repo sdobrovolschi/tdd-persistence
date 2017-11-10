@@ -1,7 +1,9 @@
 package com.example.customerservice.domain.model;
 
+import org.hibernate.annotations.Type;
 import org.springframework.util.Assert;
 
+import javax.persistence.Column;
 import java.io.Serializable;
 import java.util.Objects;
 import java.util.UUID;
@@ -13,6 +15,8 @@ import static java.util.UUID.randomUUID;
  */
 public class CustomerId implements Serializable {
 
+    @Type(type = "uuid-char")
+    @Column(name = "ID")
     private final UUID value;
 
     private CustomerId(UUID value) {
