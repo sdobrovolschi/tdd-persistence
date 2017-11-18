@@ -35,6 +35,6 @@ public class JpaCustomerRepository implements CustomerRepository {
 
     @Override
     public List<Customer> findAll(Specification<Customer> spec) {
-        return null;
+        return jpaRepository.findAll(spec);
     }
 }
