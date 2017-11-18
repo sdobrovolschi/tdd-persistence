@@ -17,7 +17,11 @@ public class CustomerId implements Serializable {
 
     @Type(type = "uuid-char")
     @Column(name = "ID")
-    private final UUID value;
+    private UUID value;
+
+    private CustomerId() {
+        // for JPA
+    }
 
     private CustomerId(UUID value) {
         Assert.notNull(value, "Value must not be null.");
