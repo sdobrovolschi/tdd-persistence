@@ -29,6 +29,10 @@ public class Customer implements Persistable<CustomerId> {
     @Transient
     private boolean isNew;
 
+    private Customer() {
+        // for JPA
+    }
+
     public Customer(CustomerId id, CustomerName name) {
         Assert.notNull(id, "Id must not be null.");
         Assert.notNull(name, "Name must not be null.");
