@@ -25,7 +25,7 @@
                 CITY varchar(30) not null,
                 EMAIL varchar(50) not null,
                 PHONE_NUMBER varchar(50) not null
-                constraint PK_CUSTOMER primary key (customer_id),
+                constraint PK_ADDRESS_BOOK primary key (customer_id),
                 constraint FK_ADDRESS_BOOK_CUSTOMER_ID foreign key (customer_id) references customer.customer (id) on delete cascade,
                 constraint UQ_ADDRESS_BOOK_EMAIL unique (email),
                 constraint UQ_ADDRESS_BOOK_PHONE_NUMBER unique (phone_number)
