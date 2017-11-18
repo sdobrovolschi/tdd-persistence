@@ -17,4 +17,21 @@
         </sql>
     </changeSet>
 
+    <changeSet id="2" author="Stanislav Dobrovolschi">
+        <sql>
+            create table customer.ADDRESS_BOOK (
+                CUSTOMER_ID uniqueidentifier not null,
+                COUNTRY varchar(30) not null,
+                CITY varchar(30) not null,
+                EMAIL varchar(50) not null,
+                PHONE_NUMBER varchar(50) not null
+                constraint PK_CUSTOMER primary key (customer_id),
+                constraint FK_ADDRESS_BOOK_CUSTOMER_ID foreign key (customer_id) references customer.customer (id) on delete cascade,
+                constraint UQ_ADDRESS_BOOK_EMAIL unique (email),
+                constraint UQ_ADDRESS_BOOK_PHONE_NUMBER unique (phone_number)
+            );
+        </sql>
+        <comment>Created address_book table.</comment>
+    </changeSet>
+
 </databaseChangeLog>
