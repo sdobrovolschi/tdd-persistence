@@ -2,17 +2,23 @@ package com.example.customerservice.domain.model;
 
 import org.springframework.util.Assert;
 
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
 /**
  * @author Stanislav Dobrovolschi
  */
+@Embeddable
 public class Address {
 
-    private final Country country;
-    private final City city;
-    private final Email email;
-    private final PhoneNumber phoneNumber;
+    private Country country;
+    private City city;
+    private Email email;
+    private PhoneNumber phoneNumber;
+
+    private Address() {
+        //for JPA
+    }
 
     private Address(Country country, City city, Email email, PhoneNumber phoneNumber) {
         Assert.notNull(country, "Country must not be null.");
