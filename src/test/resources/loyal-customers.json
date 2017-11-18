@@ -1,0 +1,20 @@
+[
+  {
+    "id": {
+      "value": "397e5247-205f-4011-b372-5b835c15fa9a"
+    },
+    "name": {
+      "name": "Customer1"
+    },
+    "loyal": true
+  },
+  {
+    "id": {
+      "value": "817c6a45-e4ef-4eb5-a48b-f6420a9e8674"
+    },
+    "name": {
+      "name": "Customer3"
+    },
+    "loyal": true
+  }
+]

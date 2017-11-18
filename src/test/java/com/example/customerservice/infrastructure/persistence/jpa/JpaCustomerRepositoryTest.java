@@ -24,9 +24,11 @@ import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.TestExecutionListeners.MergeMode;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import static com.example.customerservice.domain.model.CustomerSpecifications.loyalCustomer;
 import static com.github.springtestdbunit.assertion.DatabaseAssertionMode.NON_STRICT;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -47,6 +49,8 @@ public class JpaCustomerRepositoryTest {
     private TestEntityManager entityManager;
 
     private JacksonTester<Customer> json;
+
+    private JacksonTester<List<Customer>> customerListJson;
 
     @Before
     public void setUp() {
@@ -76,5 +80,15 @@ public class JpaCustomerRepositoryTest {
         assertThat(customer)
                 .usingFieldByFieldValueComparator()
                 .contains(json.readObject(new ClassPathResource("customer.json")));
+    }
+
+    @Test
+    @DatabaseSetup("classpath:db/datasets/customers.xml")
+    public void shouldFindAllLoyalCustomers() throws Exception {
+        List<Customer> loyalCustomers = customerRepository.findAll(loyalCustomer());
+
+        assertThat(loyalCustomers)
+                .usingFieldByFieldElementComparator()
+                .containsExactlyElementsOf(customerListJson.readObject(new ClassPathResource("loyal-customers.json")));
     }
 }
