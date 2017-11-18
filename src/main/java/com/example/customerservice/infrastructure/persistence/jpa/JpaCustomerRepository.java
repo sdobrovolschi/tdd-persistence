@@ -30,7 +30,7 @@ public class JpaCustomerRepository implements CustomerRepository {
 
     @Override
     public Optional<Customer> find(CustomerId id) {
-        return null;
+        return Optional.ofNullable(jpaRepository.findOne(id));
     }
 
     @Override
