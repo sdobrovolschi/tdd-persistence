@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<dataset>
+    <CUSTOMER ID="5d30c2bf-76d2-4928-9f93-d9149a4594a6" NAME="Customer1" />
+    <CUSTOMER ID="8ff20da4-369c-49fb-bbe1-757e16402bd3" NAME="Customer2" />
+    <CUSTOMER ID="817c6a45-e4ef-4eb5-a48b-f6420a9e8674" NAME="Customer3" />
+    <CUSTOMER ID="eb872dec-90c9-4fcb-a9aa-58339d0d484a" NAME="Customer4" />
+    <CUSTOMER ID="b0eed657-7f53-4228-ac14-7151337e6333" NAME="Customer5" />
+
+    <ADDRESS_BOOK CUSTOMER_ID="5d30c2bf-76d2-4928-9f93-d9149a4594a6" EMAIL="customer1@gmail.com" />
+    <ADDRESS_BOOK CUSTOMER_ID="8ff20da4-369c-49fb-bbe1-757e16402bd3" EMAIL="customer2@gmail.com" />
+    <ADDRESS_BOOK CUSTOMER_ID="817c6a45-e4ef-4eb5-a48b-f6420a9e8674" EMAIL="customer3@gmail.com" />
+    <ADDRESS_BOOK CUSTOMER_ID="eb872dec-90c9-4fcb-a9aa-58339d0d484a" EMAIL="customer4@gmail.com" />
+    <ADDRESS_BOOK CUSTOMER_ID="b0eed657-7f53-4228-ac14-7151337e6333" EMAIL="customer5@gmail.com" />
+</dataset>
